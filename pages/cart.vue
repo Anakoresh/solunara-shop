@@ -16,7 +16,7 @@ async function handleCheckout() {
     const res = await variantRes.json()
 
     if (!res?.data || !Array.isArray(res.data)) {
-      alert(`Failed to check stock for ${item.name}`)
+      alert("Oops! We couldn’t check the stock right now. Please wait a moment and try again.")
       isCheckingOut.value = false
       return
     }
