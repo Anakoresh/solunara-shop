@@ -17,6 +17,7 @@ const shippingTime = ref('')
 const isLoading = ref(false)
 const error = ref(null)
 const agreed = ref(false)
+const isPlacingOrder = ref(false)
 
 const form = ref({
   name: '',
@@ -191,6 +192,9 @@ function validateForm() {
 }
 
 const createOrder = async () => {
+  if (isPlacingOrder.value) return
+  isPlacingOrder.value = true
+
   if (!validateForm()) {
     error.value = 'Please fix the errors in the form.'
     return
@@ -250,10 +254,11 @@ const createOrder = async () => {
       }
     })
   } catch (err) {
-    console.error('❌ Failed to create order or start payment', err)
+    console.error('❌ Failed to create order', err)
     error.value = err?.data?.message || 'Something went wrong'
+  } finally {
+    isPlacingOrder.value = false
   }
-
 }
 
 onMounted(() => {
@@ -361,10 +366,11 @@ onMounted(() => {
     <button
       class="place-btn"
       @click="createOrder"
-      :disabled="isLoading || !shippingCost || !agreed"
+      :disabled="isLoading || isPlacingOrder || !shippingCost || !agreed"
     >
-      CONFIRM & CREATE ORDER
+      {{ isPlacingOrder ? 'Processing Order...' : 'CONFIRM & CREATE ORDER' }}
     </button>
+
 
     <p class="small-note">
       ⚠️ For international orders, please note:

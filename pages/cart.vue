@@ -9,42 +9,50 @@ const isCheckingOut = ref(false)
 const router = useRouter()
 
 async function handleCheckout() {
+  if (isCheckingOut.value) return 
   isCheckingOut.value = true
 
-  for (const item of cart.value) {
-    const variantRes = await fetch(`/api/cj/checkStockByVid?vid=${encodeURIComponent(item.vid)}`)
-    const res = await variantRes.json()
+  try {
+    for (const item of cart.value) {
+      const variantRes = await fetch(`/api/cj/checkStockByVid?vid=${encodeURIComponent(item.vid)}`)
+      const res = await variantRes.json()
 
-    if (!res?.data || !Array.isArray(res.data)) {
-      alert("Oops! We couldn’t check the stock right now. Please wait a moment and try again.")
-      isCheckingOut.value = false
-      return
-    }
-
-    const warehouses = {}
-    for (const entry of res.data) {
-      warehouses[entry.countryCode] = {
-        total: entry.totalInventoryNum,
-        cj: entry.cjInventoryNum,
-        factory: entry.factoryInventoryNum
+      if (!res?.data || !Array.isArray(res.data)) {
+        alert("Oops! We couldn’t check the stock right now. Please wait a moment and try again.")
+        isCheckingOut.value = false
+        return
       }
+
+      const warehouses = {}
+      for (const entry of res.data) {
+        warehouses[entry.countryCode] = {
+          total: entry.totalInventoryNum,
+          cj: entry.cjInventoryNum,
+          factory: entry.factoryInventoryNum
+        }
+      }
+
+      const cnAvailable = warehouses["CN"]?.total || 0
+
+      if (cnAvailable < item.quantity) {
+        alert(`Sorry, not enough stock for ${item.name}`)
+        isCheckingOut.value = false
+        return
+      }
+
+      localStorage.setItem(`stock_${item.vid}`, JSON.stringify({
+        timestamp: Date.now(),
+        data: warehouses
+      }))
     }
 
-    const cnAvailable = warehouses["CN"]?.total || 0
-
-    if (cnAvailable < item.quantity) {
-      alert(`Sorry, not enough stock for ${item.name}`)
-      isCheckingOut.value = false
-      return
-    }
-
-    localStorage.setItem(`stock_${item.vid}`, JSON.stringify({
-      timestamp: Date.now(),
-      data: warehouses
-    }))
+    router.push('/checkout')
+  } catch (e) {
+    console.error(e)
+    alert('Something went wrong. Please try again.')
+  } finally {
+    isCheckingOut.value = false
   }
-
-  router.push('/checkout')
 }
 
 </script>
@@ -70,7 +78,13 @@ async function handleCheckout() {
 
     <div class="cart-summary">
       <h2>Total: ${{ cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2) }}</h2>
-      <button class="checkout-button" @click="handleCheckout">PROCEED TO CHECKOUT</button>
+      <button
+        class="checkout-button"
+        @click="handleCheckout"
+        :disabled="isCheckingOut"
+      >
+        {{ isCheckingOut ? 'Checking stock...' : 'PROCEED TO CHECKOUT' }}
+      </button>
     </div>
   </div>
 
