@@ -98,8 +98,8 @@ export default {
 
 <style scoped>
 .burger-btn {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 50px;
   background: none;
   border: none;
   cursor: pointer;
@@ -108,7 +108,7 @@ export default {
 }
 
 .burger-btn img {
-  width: 30px;
+  width: 50px;
 }
 
 .menu {
@@ -181,15 +181,6 @@ export default {
 }
 
 @media (min-width: 768px) {
-  .burger-btn {
-    width: 50px;
-    height: 50px;
-  }
-
-  .burger-btn img {
-    width: 50px;
-  }
-
   .menu a {
     font-size: 32px;
   }

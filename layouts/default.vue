@@ -81,8 +81,8 @@ body {
 
 .burger img, .cart img, 
 .contact-icons img {
-  height: 30px;
-  width: 30px;
+  height: 50px;
+  width: 50px;
 }
 
 .logo {
@@ -154,11 +154,6 @@ footer mark {
 
   footer p {
     font-size: 32px;
-  }
-
-  .contact-icons img, .burger img, .cart img {
-    width: 50px;
-    height: 50px;
   }
 
   .line {
