@@ -18,14 +18,26 @@
     </div>
 
     <footer class="footer">
-      <img class="line" src="/public/images/footer.png" alt="line" />
+      <img class="line" src="/images/footer.png" alt="line" />
+
       <div class="contact-icons">
-        <img src="/public/images/Pinterest.png" alt="pinterest" />
-        <img src="/public/images/Instagram.png" alt="instagram" />
-        <img src="/public/images/TikTok.png" alt="tiktok" />
+        <a href="https://pin.it/4Agv50MHo" target="_blank" rel="noopener">
+          <img src="/images/Pinterest.png" alt="pinterest" />
+        </a>
+        <a href="https://www.instagram.com/solunarashop?igsh=MXNiaXZyZXd4bWRmdQ%3D%3D&utm_source=qr" target="_blank" rel="noopener">
+          <img src="/images/Instagram.png" alt="instagram" />
+        </a>
+        <a href="https://www.tiktok.com/@solunara.shop?_t=ZS-8y4Ol1cJ6ll&_r=1" target="_blank" rel="noopener">
+          <img src="/images/TikTok.png" alt="tiktok" />
+        </a>
       </div>
-      <p><mark>Email:</mark> solunarashop@gmail.com</p>
-      <img class="line" src="/public/images/footer.png" alt="line" />
+
+      <p>
+        <mark>Email: </mark>
+        <a href="mailto:solunarashop@gmail.com">solunarashop@gmail.com</a>
+      </p>
+
+      <img class="line" src="/images/footer.png" alt="line" />
     </footer>
   </div>
 </template>
@@ -99,6 +111,11 @@ footer {
     align-items: center;
     gap: 20px;
     background-color: #FAF9F6;
+}
+
+a {
+    text-decoration: none;
+    color: #6f6f6f;
 }
 
 .contact-icons {
