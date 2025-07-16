@@ -86,7 +86,7 @@ body {
 }
 
 .logo {
-  font-size: 30px;
+  font-size: 36px;
   font-weight: 500;
   color: #6f6f6f;
   margin: 0;
@@ -145,7 +145,7 @@ footer mark {
   }
 
   .logo {
-    font-size: 36px;
+    font-size: 44px;
   }
 
   .cart-count {
