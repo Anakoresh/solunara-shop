@@ -360,7 +360,10 @@ onMounted(() => {
 
     <label style="display: flex; align-items: center; gap: 10px; margin-top: 20px;" class="agreement">
       <input type="checkbox" v-model="agreed" />
-      I agree to the <a href="/terms" target="_blank" style="color: #b6867a; text-decoration: underline;">Terms of Purchase</a>
+      I agree to the 
+      <a href="/terms" target="_blank" style="color: #b6867a; text-decoration: underline;">Terms of Purchase</a> 
+      and 
+      <a href="/privacy" target="_blank" style="color: #b6867a; text-decoration: underline;">Privacy Policy</a>.
     </label>
 
     <button

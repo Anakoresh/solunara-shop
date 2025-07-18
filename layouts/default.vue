@@ -37,8 +37,14 @@
         <a href="mailto:solunarashop@gmail.com">solunarashop@gmail.com</a>
       </p>
 
+      <div class="footer-links">
+        <NuxtLink to="/terms">Terms of Purchase</NuxtLink>
+        <NuxtLink to="/privacy">Privacy Policy</NuxtLink>
+      </div>
+
       <img class="line" src="/images/footer.png" alt="line" />
     </footer>
+
   </div>
 </template>
 
@@ -136,6 +142,25 @@ footer mark {
 
 .line {
     width: 100%;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  font-size: 16px;
+  color: #6f6f6f;
+}
+
+.footer-links a {
+  color: #6f6f6f;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #b6867a;
 }
 
 @media (min-width: 768px) {
